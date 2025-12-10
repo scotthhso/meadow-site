@@ -29,6 +29,8 @@ import {
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { WhySection } from "./WhySection";
+import { details } from "framer-motion/client";
 
 // -------- Data --------
 const meadow = {
@@ -37,8 +39,8 @@ const meadow = {
 	highlights: [
 		{
 			icon: <Mountain className="h-5 w-5" />,
-			title: "High-altitude terroir",
-			text: "Average elevation 1000+ m; 92.5% mountainous with natural cloud and mist cover.",
+			title: "Unique terroir",
+			text: "China’s only high-altitude, low-latitude, pollution-free plateau tea region. 1000+ m average elevation with 92.5% mountainous terrain. Acidic, well-drained soils and a subtropical humid monsoon climate between the Yangtze and Pearl River basins, bringing natural clouds and mist. This unique ecology yields tea leaves rich in organic compounds, vivid in color, and naturally sweet.",
 		},
 		{
 			icon: <Droplets className="h-5 w-5" />,
@@ -48,14 +50,16 @@ const meadow = {
 		{
 			icon: <FlaskConical className="h-5 w-5" />,
 			title: "Clean growing practices",
-			text: "No synthetic pesticides, herbicides, or insecticides used by source farms.",
+			text: "NO synthetic pesticides, NO herbicides, NO insecticides",
 		},
 		{
 			icon: <Sparkles className="h-5 w-5" />,
-			title: "Safety & scale",
-			text: "EU food safety standard compliant; China’s largest matcha producer and a top global exporter.",
+			title: "Proven Quality",
+			text: "Producers excel in physicochemical and hygiene indicators vs. national standards (Chinese Ministry of Agriculture & Rural Affairs) EU standard compliant",
 		},
 	],
+	certifications: ["EU Food Safety Compliant"],
+
 	grades: [
 		{
 			key: "ceremonial",
@@ -84,34 +88,34 @@ const meadow = {
 	],
 	process: [
 		{
-			step: "Shade Growing (覆い下栽培)",
+			step: "Shade-Grown First Harvest",
 			details:
-				"Tea gardens are shaded 3–4 weeks before harvest to boost chlorophyll, amino acids (L-theanine), and sweetness.",
+				"Tea gardens are shaded for 3–4 weeks to boost chlorophyll, L-theanine, and sweetness, then only tender first-flush leaves are hand-picked at peak freshness.",
 		},
 		{
-			step: "First Harvest Picking",
+			step: "Gentle Withering & Pre-Sort",
 			details:
-				"Tender young leaves are selectively plucked at peak freshness for color and flavor.",
+				"Fresh leaves are lightly aerated to slow enzymatic browning, then pre-cleaned to remove old stems, foreign matter, and broken or wrapped leaves for a uniform feed.",
 		},
 		{
-			step: "Steaming & Cooling",
+			step: "Steam-Fix, Cool & Tencha Drying",
 			details:
-				"Leaves are steamed to halt oxidation, then quickly cooled to preserve jade color.",
+				"Rapid steaming (sha-qing) deactivates enzymes to lock in green color, aroma precursors, and umami, followed by forced-air cooling and primary tencha roasting for even dehydration.",
 		},
 		{
-			step: "Drying & Destemming",
+			step: "Separation & Shiage Finishing",
 			details:
-				"Dried tencha is carefully destemmed and deveined to ensure silky texture.",
+				"Moisture/weight-based sorting removes stems (kuki), while shiage finishing de-veins midribs and sizes the leaf lamina to tencha specifications.",
 		},
 		{
-			step: "Stone-Milling",
+			step: "Conditioning, Refining & Lot Standardization",
 			details:
-				"Slow granite milling protects delicate aromatics; typical output ~30–40 g/hour per mill.",
+				"Moisture is brought to a precise target for stable storage and consistent milling, then multi-stage refining removes residual stems and impurities as lots are blended to color, aroma, and taste profiles.",
 		},
 		{
-			step: "Nitrogen-Flush & Seal",
+			step: "Granite Stone-Milling",
 			details:
-				"Packed in oxygen-barrier bags under nitrogen to protect freshness and color.",
+				"Tencha is slow-milled on granite into ultra-fine matcha, protecting aromatics and yielding a silky powder that whisks to a dense, creamy foam.",
 		},
 	],
 };
@@ -132,7 +136,22 @@ const FadeIn: React.FC<{ delay?: number; children: React.ReactNode }> = ({
 
 export default function MeadowProductPage() {
 	return (
-		<div className="min-h-screen bg-neutral-50 text-neutral-800">
+		<div className="min-h-screen bg-meadow-50 text-neutral-800">
+			{/* Tailwind palette check */}
+			<div className="my-6 flex flex-wrap gap-2">
+				<div className="rounded-md px-3 py-1 text-white bg-meadow-600">
+					meadow-600
+				</div>
+				<div className="rounded-md px-3 py-1 text-white bg-meadow-700">
+					meadow-700
+				</div>
+				<div className="rounded-md px-3 py-1 text-white bg-meadow-800">
+					meadow-800
+				</div>
+				<div className="rounded-md px-3 py-1 text-meadow-900 bg-meadow-100 border border-meadow-300">
+					meadow-100
+				</div>
+			</div>
 			{/* Header / Hero */}
 			<header className="relative overflow-hidden">
 				{/* playful blob background */}
@@ -210,62 +229,7 @@ export default function MeadowProductPage() {
 			</header>
 
 			{/* Region & Highlights */}
-			<section className="mx-auto max-w-6xl px-6 py-12">
-				<FadeIn>
-					<div className="grid gap-10 md:grid-cols-2">
-						{/* Sticker grid */}
-						<div>
-							<h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-								Why Guizhou
-							</h2>
-							<p className="mt-2 max-w-xl text-neutral-600">
-								China’s only high-altitude, low-latitude, high-mist,
-								low-sunshine tea plateau.
-							</p>
-							<div className="mt-6 grid gap-4 sm:grid-cols-2">
-								{meadow.highlights.map((h, idx) => (
-									<div
-										key={idx}
-										className="flex items-start gap-3 rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-[0_1px_0_#0000000d]"
-									>
-										<div className="rounded-lg bg-emerald-50 p-2 text-emerald-700">
-											{h.icon}
-										</div>
-										<div>
-											<div className="font-medium text-neutral-900">
-												{h.title}
-											</div>
-											<div className="text-sm text-neutral-600">{h.text}</div>
-										</div>
-									</div>
-								))}
-							</div>
-						</div>
-
-						{/* Process as playful list */}
-						<div>
-							<h3 className="text-2xl font-semibold tracking-tight text-neutral-900">
-								Production Process
-							</h3>
-							<p className="mt-2 max-w-md text-neutral-600">
-								From shade to stone mill—how Meadow keeps its color and calm.
-							</p>
-							<div className="mt-4 rounded-2xl border border-neutral-200 bg-white p-3">
-								<Accordion type="single" collapsible className="w-full">
-									{meadow.process.map((p, i) => (
-										<AccordionItem key={i} value={`step-${i}`}>
-											<AccordionTrigger className="text-left">
-												{p.step}
-											</AccordionTrigger>
-											<AccordionContent>{p.details}</AccordionContent>
-										</AccordionItem>
-									))}
-								</Accordion>
-							</div>
-						</div>
-					</div>
-				</FadeIn>
-			</section>
+			<WhySection meadow={meadow} />
 
 			{/* Grades */}
 			<section id="grades" className="mx-auto max-w-6xl px-6 pb-12">
