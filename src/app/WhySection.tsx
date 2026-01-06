@@ -11,15 +11,15 @@ import { BadgeCheck } from "lucide-react";
 export const WhySection = ({ meadow }: { meadow: any }) => {
 	return (
 		<>
-			<section className="mx-auto max-w-6xl px-6 py-12">
+			<section className="mx-auto max-w-6xl px-6 py-12" id="why">
 				<FadeIn>
-					<div className="grid gap-10 md:grid-cols-2">
+					<div className="grid gap-10">
 						{/* Sticker grid */}
 						<div>
 							<h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
 								Why Meadow Matcha?
 							</h2>
-							<span>
+							<div>
 								<p className="text-xs font-semibold tracking-tight text-neutral-900">
 									Origin Guizhou, China:
 								</p>
@@ -27,25 +27,61 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 									Known as the matcha capital of China Largest exporter in
 									China, #3 worldwide.
 								</p>
-							</span>
-							<div className="mt-6 grid gap-4 sm:grid-cols-2">
-								{meadow?.highlights.map((h: any, idx: number) => (
-									<div
-										key={idx}
-										className="flex items-start gap-3 rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-[0_1px_0_#0000000d]"
-									>
-										<div className="rounded-lg bg-emerald-50 p-2 text-emerald-700">
-											{h.icon}
-										</div>
-										<div>
-											<div className="font-medium text-neutral-900">
-												{h.title}
-											</div>
-											<div className="text-sm text-neutral-600">{h.text}</div>
-										</div>
-									</div>
-								))}
 							</div>
+							<div className="mt-6 grid gap-4 md:grid-cols-2">
+								{/* Left column: single featured highlight */}
+								<div>
+									{(() => {
+										const h = meadow.highlights[0];
+										return (
+											<div className="grid grid-cols-[auto,1fr] items-start gap-3 rounded-2xl border border-emerald-200/60 bg-white p-5 shadow-[0_1px_0_#0000000d]">
+												<div className="rounded-lg bg-emerald-50 p-2 text-emerald-700">
+													{h.icon}
+												</div>
+												<div>
+													<div className="text-lg font-semibold text-neutral-900">
+														{h.title}
+													</div>
+													<div className="mt-1 text-sm text-neutral-600">
+														{h.points.map((point: string, idx: number) => (
+															<div key={idx} className="mb-1">
+																• {point}
+															</div>
+														))}
+													</div>
+												</div>
+											</div>
+										);
+									})()}
+								</div>
+
+								{/* Right column: the remaining highlights stacked */}
+								<div className="space-y-4">
+									{meadow.highlights.slice(1).map((h, idx) => (
+										<div
+											key={idx}
+											className="grid grid-cols-[auto,1fr] items-start gap-3 rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-[0_1px_0_#0000000d]"
+										>
+											<div className="rounded-lg bg-emerald-50 p-2 text-emerald-700">
+												{h.icon}
+											</div>
+											<div>
+												<div className="font-medium text-neutral-900">
+													{h.title}
+												</div>
+												<div className="text-sm text-neutral-600">
+													{h.points.map((point: string, idx: number) => (
+														<div key={idx} className="mb-1">
+															• {point}
+														</div>
+													))}
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+
 							<div className="mt-6 flex items-center gap-2 text-sm font-medium text-neutral-700">
 								ISO 9001, ISO 22000, FSSC 22000, HACCP, and AIB
 							</div>
@@ -61,7 +97,7 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 				</FadeIn>
 			</section>
 
-			<section className="mx-auto max-w-6xl px-6 py-12">
+			<section className="mx-auto max-w-6xl px-6 py-12" id="process">
 				<FadeIn>
 					{/* Process as playful list */}
 					<div>
@@ -71,17 +107,6 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 						<p className="mt-2 max-w-md text-neutral-600">
 							From shade to stone mill—how Meadow keeps its color and calm.
 						</p>
-						{/* <div className="mt-4 rounded-2xl border border-neutral-200 bg-white p-3"> */}
-						{/* <Accordion type="single" collapsible className="w-full">
-								{meadow.process.map((p: any, i: number) => (
-									<AccordionItem key={i} value={`step-${i}`}>
-										<AccordionTrigger className="text-left">
-											{p.step}
-										</AccordionTrigger>
-										<AccordionContent>{p.details}</AccordionContent>
-									</AccordionItem>
-								))}
-							</Accordion> */}
 						<ol className="relative mt-6 space-y-6">
 							{meadow.process.map((p: any, i: number) => {
 								const number = i + 1;
