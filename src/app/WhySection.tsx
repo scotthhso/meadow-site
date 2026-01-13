@@ -57,7 +57,7 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 
 								{/* Right column: the remaining highlights stacked */}
 								<div className="space-y-4">
-									{meadow.highlights.slice(1).map((h, idx) => (
+									{meadow.highlights.slice(1).map((h: any, idx: number) => (
 										<div
 											key={idx}
 											className="grid grid-cols-[auto,1fr] items-start gap-3 rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-[0_1px_0_#0000000d]"
