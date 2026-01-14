@@ -11,16 +11,20 @@ import { BadgeCheck } from "lucide-react";
 export const WhySection = ({ meadow }: { meadow: any }) => {
 	return (
 		<>
-			<section className="mx-auto max-w-6xl px-6 py-12" id="why">
+			<section
+				className="mx-auto max-w-6xl px-6 py-12 bg-[#FFF8F0]"
+				id="why"
+				style={{ color: "#42531D" }}
+			>
 				<FadeIn>
 					<div className="grid gap-10">
 						{/* Sticker grid */}
 						<div>
-							<h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-								Why Meadow Matcha?
+							<h2 className="text-2xl font-semibold tracking-tight ">
+								WHY MEADOW MATCHA?
 							</h2>
 							<div>
-								<p className="text-xs font-semibold tracking-tight text-neutral-900">
+								<p className="text-xs font-semibold tracking-tight ">
 									Origin Guizhou, China:
 								</p>
 								<p className="mt-2 max-w-xl text-neutral-600">

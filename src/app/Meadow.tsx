@@ -1,6 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
+import meadowHero from "./meadowhero.png";
 import { motion } from "framer-motion";
 import {
 	Leaf,
@@ -134,82 +136,59 @@ const FadeIn: React.FC<{ delay?: number; children: React.ReactNode }> = ({
 );
 
 export default function MeadowProductPage() {
+	const circleRef = useRef<HTMLDivElement>(null);
+
+	const handleRippleMove = (event: React.MouseEvent<HTMLDivElement>) => {
+		const node = circleRef.current;
+		if (!node) return;
+		const rect = node.getBoundingClientRect();
+		const x = ((event.clientX - rect.left) / rect.width) * 100;
+		const y = ((event.clientY - rect.top) / rect.height) * 100;
+		node.style.setProperty("--ripple-x", `${x}%`);
+		node.style.setProperty("--ripple-y", `${y}%`);
+	};
+
+	const handleRippleLeave = () => {
+		const node = circleRef.current;
+		if (!node) return;
+		node.style.setProperty("--ripple-x", "50%");
+		node.style.setProperty("--ripple-y", "50%");
+	};
+
 	return (
 		<div className="min-h-screen bg-meadow-50 text-neutral-800">
-			{/* Tailwind palette check */}
-			<div className="my-6 flex flex-wrap gap-2">
-				<div className="rounded-md px-3 py-1 text-white bg-meadow-600">
-					meadow-600
-				</div>
-				<div className="rounded-md px-3 py-1 text-white bg-meadow-700">
-					meadow-700
-				</div>
-				<div className="rounded-md px-3 py-1 text-white bg-meadow-800">
-					meadow-800
-				</div>
-				<div className="rounded-md px-3 py-1 text-meadow-900 bg-meadow-100 border border-meadow-300">
-					meadow-100
-				</div>
-			</div>
 			{/* Header / Hero */}
-			<header className="relative overflow-hidden">
-				{/* playful blob background */}
-				<div className="absolute inset-0">
-					<div className="absolute -left-20 -top-24 h-80 w-80 rounded-full bg-emerald-200/60 blur-3xl" />
-					<div className="absolute right-0 top-10 h-64 w-64 rounded-full bg-lime-200/60 blur-3xl" />
-					<div className="absolute bottom-0 left-1/3 h-40 w-40 rounded-full bg-teal-200/50 blur-2xl" />
+			<header className="relative overflow-hidden  bg-[#D64B00]">
+				<div
+					className="pointer-events-none absolute inset-0 opacity-20 mix-blend-soft-light"
+					style={{
+						backgroundImage:
+							"repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0 1px, transparent 31px 2.6px)",
+					}}
+					aria-hidden
+				/>
+				<div
+					className="mt-20 font-title flex h-20 w-full items-center justify-center"
+					style={{
+						fontSize: "80px",
+						fontWeight: "700",
+						lineHeight: "40px",
+						color: "#FFF8F0",
+						textShadow: "-3px 3px 0 rgba(110, 32, 0, 0.45)",
+					}}
+				>
+					Meadow Matcha
 				</div>
-				<div className="relative mx-auto max-w-6xl px-6 py-16">
-					<FadeIn>
-						<div className="inline-flex items-center gap-2 rounded-full border bg-white/80 px-3 py-1 text-sm backdrop-blur">
-							<Leaf className="h-4 w-4" />
-							Meadow • Matcha from {meadow.region}
-						</div>
-					</FadeIn>
-
-					<FadeIn delay={0.1}>
-						<h1 className="mt-6 text-pretty text-5xl font-extrabold leading-[1.05] tracking-tight text-neutral-900 sm:text-6xl">
-							🍵 Bright matcha for calm, happy cups.
-						</h1>
-					</FadeIn>
-
-					<FadeIn delay={0.2}>
-						<p className="mt-4 max-w-3xl text-lg text-neutral-700">
-							Shade-grown • stone-milled • Guizhou tea plateau. Smooth, low
-							bitterness, and a color that pops in milk.
-						</p>
-					</FadeIn>
-
-					<FadeIn delay={0.3}>
-						<div className="mt-6 flex flex-wrap items-center gap-2">
-							<span className="rounded-full bg-emerald-100 px-3 py-1 text-sm text-emerald-800">
-								EU food-safety compliant
-							</span>
-							<span className="rounded-full border border-emerald-200 bg-white px-3 py-1 text-sm">
-								No synthetic pesticides / herbicides / insecticides
-							</span>
-							<span className="rounded-full border border-emerald-200 bg-white px-3 py-1 text-sm">
-								Shade-grown • Stone-milled
-							</span>
-						</div>
-					</FadeIn>
-
-					<FadeIn delay={0.35}>
-						<div className="mt-8 flex flex-wrap gap-3">
-							<a
-								href="#contact"
-								className="rounded-full bg-neutral-900 px-5 py-3 text-white shadow-sm transition hover:opacity-90"
-							>
-								Request Samples
-							</a>
-							<a
-								className="rounded-full border border-neutral-300 bg-white px-5 py-3 text-neutral-900 transition hover:bg-neutral-50"
-								href="#"
-							>
-								Download Product Sheet
-							</a>
-						</div>
-					</FadeIn>
+				<div className="mt-10 flex w-full justify-center pb-16">
+					<div
+						ref={circleRef}
+						className="circle-ripple relative h-80 w-80 rounded-full bg-[#42531D]"
+						onMouseMove={handleRippleMove}
+						onMouseLeave={handleRippleLeave}
+					>
+						<span className="ripple-surface pointer-events-none absolute inset-0 rounded-full" />
+						<span className="ripple-surface ripple-delay pointer-events-none absolute inset-0 rounded-full" />
+					</div>
 				</div>
 
 				{/* wavy divider */}
@@ -220,45 +199,52 @@ export default function MeadowProductPage() {
 					preserveAspectRatio="none"
 				>
 					<path
-						d="M0,64 C240,16 480,16 720,64 C960,112 1200,112 1440,64 L1440,80 L0,80 Z"
-						fill="#ffffff"
-						opacity="0.9"
+						d="M0,42 C240,4 480,4 720,42 C960,80 1200,80 1440,42 L1440,80 L0,80 Z"
+						fill="#FFF8F0"
+						// opacity="0.9"
 					/>
 				</svg>
 			</header>
-			<nav className="sticky top-0 z-40 border-b bg-white/80 backdrop-blur">
+			<nav className="sticky top-0 z-40 bg-[#FFF8F0] backdrop-blur pt-4">
 				<div className="mx-auto max-w-6xl px-6">
-					<ul className="flex flex-wrap gap-6 py-3 text-sm">
+					<ul
+						className="flex flex-wrap gap-6 py-3 text-sm"
+						style={{ justifyContent: "center" }}
+					>
 						<li>
 							<a
 								href="#why"
-								className="text-neutral-700 hover:text-neutral-900"
+								className="text-[#42531D] hover:text-neutral-900 font-bold"
+								style={{ fontSize: "16px" }}
 							>
-								Why Guizhou
+								WHY MEADOW MATCHA
 							</a>
 						</li>
 						<li>
 							<a
 								href="#process"
-								className="text-neutral-700 hover:text-neutral-900"
+								className="text-[#42531D] hover:text-neutral-900 font-bold"
+								style={{ fontSize: "16px" }}
 							>
-								Process
+								PROCESS
 							</a>
 						</li>
 						<li>
 							<a
 								href="#product"
-								className="text-neutral-700 hover:text-neutral-900"
+								className="text-[#42531D] hover:text-neutral-900 font-bold"
+								style={{ fontSize: "16px" }}
 							>
-								Product
+								PRODUCT
 							</a>
 						</li>
 						<li>
 							<a
 								href="#contact"
-								className="text-neutral-700 hover:text-neutral-900"
+								className="text-[#42531D] hover:text-neutral-900 font-bold"
+								style={{ fontSize: "16px" }}
 							>
-								Contact
+								CONTACT
 							</a>
 						</li>
 					</ul>
@@ -268,7 +254,10 @@ export default function MeadowProductPage() {
 			<WhySection meadow={meadow} />
 
 			{/* Grades */}
-			<section id="grades" className="mx-auto max-w-6xl px-6 pb-12 py-12">
+			<section
+				id="grades"
+				className="mx-auto max-w-6xl px-6 pb-12 py-12 bg-[#FFF8F0]"
+			>
 				<FadeIn>
 					<div>
 						<h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
