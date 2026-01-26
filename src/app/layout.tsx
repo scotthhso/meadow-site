@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Oswald } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -11,6 +11,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
 	subsets: ["latin"],
+});
+const oswald = Oswald({
+	variable: "--font-condensed",
+	subsets: ["latin"],
+	weight: ["400", "500", "600"],
 });
 const beautyRachela = localFont({
 	src: "./BeautyRachela-Regular.otf",
@@ -31,7 +36,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${beautyRachela.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} ${beautyRachela.variable} ${oswald.variable} antialiased`}
 			>
 				{children}
 			</body>

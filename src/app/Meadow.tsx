@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import meadowHero from "./meadowhero.png";
 import { motion } from "framer-motion";
@@ -32,6 +32,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { WhySection } from "./WhySection";
+import { Product } from "./Product";
 import { details } from "framer-motion/client";
 
 // -------- Data --------
@@ -41,27 +42,25 @@ const meadow = {
 	highlights: [
 		{
 			icon: <Mountain className="h-5 w-5" />,
-			title: "Unique terroir",
+			title: "Unique Terroir",
 			points: [
 				"China’s only high-altitude, low-latitude, pollution-free plateau tea region",
-				"1000+ m average elevation with 92.5% mountainous terrain",
 				"Acidic, well-drained soils and a subtropical humid monsoon climate between the Yangtze and Pearl River basins, bringing natural clouds and mist.",
 				"This unique ecology yields tea leaves rich in organic compounds, vivid in color, and naturally sweet.",
 			],
-		},
-		{
-			icon: <FlaskConical className="h-5 w-5" />,
-			title: "Clean growing practices",
-			points: ["NO synthetic pesticides, NO herbicides, NO insecticides"],
 		},
 		{
 			icon: <Sparkles className="h-5 w-5" />,
 			title: "Proven Quality",
 			points: [
 				"Producers excel in physicochemical and hygiene indicators vs. national standards (Chinese Ministry of Agriculture & Rural Affairs)",
-				"EU standard compliant",
 			],
 		},
+		// {
+		// 	icon: <FlaskConical className="h-5 w-5" />,
+		// 	title: "Clean growing practices",
+		// 	points: ["NO synthetic pesticides, NO herbicides, NO insecticides"],
+		// },
 	],
 	certifications: ["EU Food Safety Compliant"],
 
@@ -137,6 +136,28 @@ const FadeIn: React.FC<{ delay?: number; children: React.ReactNode }> = ({
 
 export default function MeadowProductPage() {
 	const circleRef = useRef<HTMLDivElement>(null);
+	const navRef = useRef<HTMLElement>(null);
+	const [isStuck, setIsStuck] = useState(false);
+
+	useEffect(() => {
+		let rafId = 0;
+		const handleScroll = () => {
+			if (rafId) return;
+			rafId = window.requestAnimationFrame(() => {
+				rafId = 0;
+				const top = navRef.current?.getBoundingClientRect().top ?? 0;
+				setIsStuck(top <= 0);
+			});
+		};
+		handleScroll();
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		window.addEventListener("resize", handleScroll);
+		return () => {
+			if (rafId) window.cancelAnimationFrame(rafId);
+			window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("resize", handleScroll);
+		};
+	}, []);
 
 	const handleRippleMove = (event: React.MouseEvent<HTMLDivElement>) => {
 		const node = circleRef.current;
@@ -205,10 +226,15 @@ export default function MeadowProductPage() {
 					/>
 				</svg>
 			</header>
-			<nav className="sticky top-0 z-40 bg-[#FFF8F0] backdrop-blur pt-4">
+			<nav
+				ref={navRef}
+				className={`sticky top-0 z-40 bg-[#FFF8F0] backdrop-blur pt-4 transition-shadow ${
+					isStuck ? "shadow-[0_6px_12px_-10px_#00000040]" : "shadow-none"
+				}`}
+			>
 				<div className="mx-auto max-w-6xl px-6">
 					<ul
-						className="flex flex-wrap gap-6 py-3 text-sm"
+						className="font-condensed flex flex-wrap gap-6 py-3 text-sm"
 						style={{ justifyContent: "center" }}
 					>
 						<li>
@@ -254,69 +280,8 @@ export default function MeadowProductPage() {
 			<WhySection meadow={meadow} />
 
 			{/* Grades */}
-			<div className="bg-[#FFF8F0]">
-				<section
-					id="product"
-					className="mx-auto max-w-6xl scroll-mt-24 px-6 py-12 pb-12"
-				>
-					<FadeIn>
-						<div>
-							<h2 className="text-3xl font-semibold tracking-tight text-[#42531D]">
-								Product
-							</h2>
-							<p className="text-neutral-800">Origin: Guizhou</p>
-						</div>
-						<p className="mt-2 max-w-2xl text-neutral-600">
-							Choose your profile. Sizes are flexible; samples on request.
-						</p>
-					</FadeIn>
+			<Product meadow={meadow} />
 
-					<div className="mt-8 grid gap-6 md:grid-cols-2">
-						{meadow.grades.map((g, i) => (
-							<FadeIn key={g.key} delay={0.05 * i}>
-								<div className="grid items-stretch gap-4 rounded-3xl border border-neutral-200 bg-white p-4 md:grid-cols-[7fr_3fr]">
-									<div className="min-w-0 flex flex-col justify-between gap-4">
-										<div>
-											<div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-base text-emerald-800">
-												{g.name}
-											</div>
-											<dl className="mt-3 grid gap-3 text-lg text-neutral-700">
-												<div>
-													<dt className="font-medium text-neutral-900">
-														Description
-													</dt>
-													<dd style={{ fontSize: 16 }}>{g.description}</dd>
-												</div>
-												<div>
-													<dt className="font-medium text-neutral-900">
-														Taste
-													</dt>
-													<dd style={{ fontSize: 16 }}>{g.taste}</dd>
-												</div>
-												<div>
-													<dt className="font-medium text-neutral-900">
-														Color
-													</dt>
-													<dd style={{ fontSize: 16 }}>{g.color}</dd>
-												</div>
-											</dl>
-										</div>
-									</div>
-									<div className="overflow-hidden rounded-2xl border border-neutral-200">
-										<img
-											src={g.photo}
-											alt={`${g.name} matcha`}
-											className=" object-cover"
-											style={{ width: "100%", height: "100%" }}
-											loading="lazy"
-										/>
-									</div>
-								</div>
-							</FadeIn>
-						))}
-					</div>
-				</section>
-			</div>
 			{/* Contact / Samples */}
 			<section
 				id="contact"
@@ -326,7 +291,7 @@ export default function MeadowProductPage() {
 					<div className="rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_1px_0_#0000000d]">
 						<div className="mb-4 flex items-center gap-2">
 							<Mail className="h-5 w-5" />
-							<h3 className="text-lg font-semibold">
+							<h3 className="font-condensed text-lg font-semibold">
 								Samples & Wholesale Inquiries
 							</h3>
 						</div>

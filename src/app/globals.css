@@ -130,6 +130,9 @@
 }
 
 @layer utilities {
+  .font-condensed {
+    font-family: var(--font-condensed), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
   .font-title {
     font-family: "BeautyRachela", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
