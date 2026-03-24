@@ -207,7 +207,7 @@ export default function MeadowProductPage() {
 
 				{/* wavy divider */}
 				<svg
-					className="text-[length:0]"
+					className="-mb-px block w-full text-[length:0]"
 					aria-hidden
 					viewBox="0 0 1440 80"
 					preserveAspectRatio="none"
@@ -221,7 +221,7 @@ export default function MeadowProductPage() {
 			</header>
 			<nav
 				ref={navRef}
-				className={`sticky top-0 z-40 bg-[#FFF8F0]/95 backdrop-blur transition-shadow ${
+				className={`sticky top-0 z-40 bg-[#FFF8F0] backdrop-blur transition-shadow ${
 					isStuck ? "shadow-[0_6px_12px_-10px_#00000040]" : "shadow-none"
 				}`}
 			>
