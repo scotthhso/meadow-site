@@ -19,14 +19,6 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 				id="why"
 				style={{ color: "#42531D" }}
 			>
-				<div
-					className="pointer-events-none absolute -right-6 top-32 z-0 h-36 w-40 rotate-3"
-					aria-hidden
-				>
-					<div className="absolute inset-0 rounded-[55%_45%_60%_40%/55%_45%_55%_45%] bg-[#D3C7EA]/55" />
-					<span className="absolute -left-2 top-20 h-10 w-10 rounded-full bg-[#D3C7EA]/55" />
-					<span className="absolute right-1 top-0 h-8 w-8 rounded-full bg-[#D3C7EA]/55" />
-				</div>
 				<div className="relative z-10">
 					<FadeIn>
 						<div className="grid gap-10">
@@ -143,17 +135,6 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 						</div>
 					</FadeIn>
 				</div>
-				<div
-					className="pointer-events-none absolute -left-10 bottom-10 z-0 h-44 w-52 -rotate-6"
-					aria-hidden
-				>
-					{/* <div className="absolute inset-0 rounded-[58%_42%_64%_36%/55%_48%_52%_45%] bg-[#F8DFC2]" /> */}
-					{/* <span className="absolute -left-3 top-6 h-12 w-12 rounded-full bg-lime-300/70" /> */}
-					{/* <span className="absolute right-0 top-0 h-10 w-10 rounded-full bg-lime-300/70" />
-					<span className="absolute -right-4 top-12 h-14 w-14 rounded-full bg-lime-300/70" /> */}
-					{/* <span className="absolute left-10 -bottom-4 h-12 w-12 rounded-full bg-lime-300/70" />
-					<span className="absolute -left-1 -bottom-2 h-8 w-8 rounded-full bg-lime-300/70" /> */}
-				</div>
 			</section>
 
 			<section
@@ -169,14 +150,6 @@ export const WhySection = ({ meadow }: { meadow: any }) => {
 						<p className="mt-2 max-w-md text-neutral-600 text-lg">
 							From shade to stone mill—how Meadow keeps its color and calm.
 						</p>
-						<div
-							className="pointer-events-none absolute -left-20 -top-0 z-0 h-44 w-52 rotate-6 rounded-[55%_45%_60%_40%/55%_50%_50%_45%] bg-emerald-300/20 blur-[1px]"
-							aria-hidden
-						/>
-						<div
-							className="pointer-events-none absolute left-10 top-6 z-0 h-24 w-28 -rotate-8 rounded-[60%_40%_55%_45%/50%_60%_40%_50%] bg-emerald-200/20"
-							aria-hidden
-						/>
 						<ol className="relative mt-6 space-y-6">
 							{meadow.process.map((p: any, i: number) => {
 								const number = i + 1;
