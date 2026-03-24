@@ -189,21 +189,14 @@ export default function MeadowProductPage() {
 					aria-hidden
 				/>
 				<div
-					className="mt-20 font-title flex h-20 w-full items-center justify-center"
-					style={{
-						fontSize: "80px",
-						fontWeight: "700",
-						lineHeight: "40px",
-						color: "#FFF8F0",
-						textShadow: "-3px 3px 0 rgba(110, 32, 0, 0.45)",
-					}}
+					className="font-title mt-10 flex min-h-16 w-full items-center justify-center px-4 text-center text-[clamp(2.75rem,12vw,5rem)] font-bold leading-[0.85] text-[#FFF8F0] drop-shadow-[0_4px_0_rgba(110,32,0,0.35)] sm:mt-14 md:mt-20"
 				>
 					Meadow Matcha
 				</div>
-				<div className="mt-10 flex w-full justify-center pb-16">
+				<div className="mt-6 flex w-full justify-center px-4 pb-10 sm:mt-8 sm:pb-12 md:mt-10 md:pb-16">
 					<div
 						ref={circleRef}
-						className="circle-ripple relative h-80 w-80 rounded-full bg-[#42531D]"
+						className="circle-ripple relative h-[min(70vw,20rem)] w-[min(70vw,20rem)] rounded-full bg-[#42531D] sm:h-72 sm:w-72 md:h-80 md:w-80"
 						onMouseMove={handleRippleMove}
 						onMouseLeave={handleRippleLeave}
 					>
@@ -228,20 +221,18 @@ export default function MeadowProductPage() {
 			</header>
 			<nav
 				ref={navRef}
-				className={`sticky top-0 z-40 bg-[#FFF8F0] backdrop-blur pt-4 transition-shadow ${
+				className={`sticky top-0 z-40 bg-[#FFF8F0]/95 backdrop-blur transition-shadow ${
 					isStuck ? "shadow-[0_6px_12px_-10px_#00000040]" : "shadow-none"
 				}`}
 			>
-				<div className="mx-auto max-w-6xl px-6">
+				<div className="mx-auto max-w-6xl px-4 sm:px-6">
 					<ul
-						className="font-condensed flex flex-wrap gap-6 py-3 text-sm"
-						style={{ justifyContent: "center" }}
+						className="font-condensed flex items-center justify-start gap-2 overflow-x-auto whitespace-nowrap py-3 text-sm sm:justify-center sm:gap-4 md:gap-6"
 					>
 						<li>
 							<a
 								href="#why"
-								className="text-[#42531D] hover:text-neutral-900 font-bold"
-								style={{ fontSize: "16px" }}
+								className="block rounded-full px-3 py-2 text-[0.95rem] font-bold text-[#42531D] transition-colors hover:text-neutral-900 sm:px-2 sm:py-1"
 							>
 								WHY MEADOW MATCHA
 							</a>
@@ -249,8 +240,7 @@ export default function MeadowProductPage() {
 						<li>
 							<a
 								href="#process"
-								className="text-[#42531D] hover:text-neutral-900 font-bold"
-								style={{ fontSize: "16px" }}
+								className="block rounded-full px-3 py-2 text-[0.95rem] font-bold text-[#42531D] transition-colors hover:text-neutral-900 sm:px-2 sm:py-1"
 							>
 								PROCESS
 							</a>
@@ -258,8 +248,7 @@ export default function MeadowProductPage() {
 						<li>
 							<a
 								href="#product"
-								className="text-[#42531D] hover:text-neutral-900 font-bold"
-								style={{ fontSize: "16px" }}
+								className="block rounded-full px-3 py-2 text-[0.95rem] font-bold text-[#42531D] transition-colors hover:text-neutral-900 sm:px-2 sm:py-1"
 							>
 								PRODUCT
 							</a>
@@ -267,8 +256,7 @@ export default function MeadowProductPage() {
 						<li>
 							<a
 								href="#contact"
-								className="text-[#42531D] hover:text-neutral-900 font-bold"
-								style={{ fontSize: "16px" }}
+								className="block rounded-full px-3 py-2 text-[0.95rem] font-bold text-[#42531D] transition-colors hover:text-neutral-900 sm:px-2 sm:py-1"
 							>
 								CONTACT
 							</a>
