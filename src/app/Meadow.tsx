@@ -289,23 +289,40 @@ export default function MeadowProductPage() {
 						</p>
 						<form
 							className="grid gap-4 md:grid-cols-2"
-							onSubmit={async (e) => {
+							onSubmit={(e) => {
 								e.preventDefault();
 								const form = e.currentTarget as HTMLFormElement;
 								const data = new FormData(form);
-								const payload = Object.fromEntries(data.entries());
+								const getValue = (key: string) =>
+									String(data.get(key) ?? "").trim();
+								const name = getValue("name");
+								const email = getValue("email");
+								const business = getValue("business");
+								const location = getValue("location");
+								const message = getValue("message");
+								const subject = `Meadow wholesale inquiry from ${name || "website visitor"}`;
+								const body = [
+									"Hello Meadow,",
+									"",
+									"I'd like to learn more about your matcha offerings.",
+									"",
+									`Name: ${name}`,
+									`Email: ${email}`,
+									`Business: ${business || "-"}`,
+									`Location: ${location || "-"}`,
+									"",
+									"Inquiry:",
+									message || "-",
+								].join("\n");
+								const mailtoUrl = `mailto:hello@drinkmeadow.com?subject=${encodeURIComponent(
+									subject,
+								)}&body=${encodeURIComponent(body)}`;
+
 								try {
-									const res = await fetch("/api/meadow-contact", {
-										method: "POST",
-										headers: { "Content-Type": "application/json" },
-										body: JSON.stringify(payload),
-									});
-									if (!res.ok) throw new Error("Request failed");
-									alert("Thanks! We’ll get back to you shortly.");
-									form.reset();
-								} catch (err) {
+									window.location.href = mailtoUrl;
+								} catch {
 									alert(
-										"Sorry—something went wrong. Please email hello@drinkmeadow.com.",
+										"Please email hello@drinkmeadow.com if your mail app did not open.",
 									);
 								}
 							}}
